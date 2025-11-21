@@ -1,0 +1,64 @@
+#:kivy 2.3.1
+#:import NoTransition kivy.uix.screenmanager.NoTransition
+
+WindowManager:
+    transition: NoTransition()
+    LoadingScreen:
+    PlottingScreen:
+
+<LoadingScreen>:
+    name: "loading"
+
+    BoxLayout:
+        size: root.size
+        pos: root.pos
+        orientation: "vertical"
+        BoxLayout:
+            orientation: 'vertical'
+
+            BoxLayout:
+                size_hint_y: None
+                height: sp(52)
+
+                Button:
+                    text: 'Icon View'
+                    on_press: filechooser.view_mode = 'icon'
+                Button:
+                    text: 'List View'
+                    on_press: filechooser.view_mode = 'list'
+
+            FileChooser:
+                id: filechooser
+                path: "."
+                FileChooserIconLayout
+                FileChooserListLayout
+
+        BoxLayout:
+            size_hint_y: None
+            height: 30
+            Button:
+                text: "Cancel"
+                on_release: app.close_application()
+
+            Button:
+                text: "Load"
+                on_release:
+                    app.root.current = "plotting"
+                    root.load(filechooser.path, filechooser.selection)
+
+<PlottingScreen>:
+    name: "plotting"
+
+    InteractiveLineChart
+
+    BoxLayout:
+        size_hint_y: None
+        height: 30
+        Button:
+            text: "Load HTML File"
+            on_release:
+                app.root.current = "loading"
+        Button:
+            text: "Quit"
+            on_release:
+                app.close_application()
