@@ -1,0 +1,60 @@
+________________________________________________________________________________
+### new attempt: kivy/buildozer
+
+steps:
+- understand kivy better (seems good)
+- then try to buildozer it.
+
+experience:
+> pip install --upgrade pip kivy legacy-cgi Cython==0.29.33 pandas beautifulsoup4
+> pip install --upgrade git+https://github.com/kivy/buildozer
+> archlinux-java status
+
+to test:
+> yay -S jdk21-openjdk
+> sudo archlinux-java set java-21-openjdk
+
+
+buildozer init
+# buildozer appclean
+# buildozer android clean
+buildozer android debug deploy
+
+execution fails; might require pillow?
+https://stackoverflow.com/questions/73371151/buildozer-kivy-app-crashes-on-android-right-after-opening
+pillow fails -> cmake version
+
+________________________________________________________________________________
+### BeeWare
+https://tutorial.beeware.org/en/latest
+
+python -m venv .logger-app
+source .logger-app/bin/activate.fish
+
+python -m pip install --upgrade pip briefcase
+
+briefcase new
+[...]
+
+# https://github.com/beeware/toga/discussions/1990
+
+... okay, but that gets tricky when opening files.
+:(
+
+________________________________________________________________________________
+### failed attempt: kivy/buildozer
+
+buildozer appclean
+
+buildozer init
+- no BUILD found
+-> install the right program (python-buildozer)
+
+buildozer android debug deploy run
+
+- ... error: cgi
+pip install --upgrade legacy-cgi Cython==0.29.33
+- gradle error: java version
+archlinux-java status
+yay -S jdk21-openjdk
+sudo archlinux-java set java-25-openjdk
